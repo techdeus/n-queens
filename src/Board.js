@@ -135,32 +135,35 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
-      var col = majorDiagonalColumnIndexAtFirstRow
-      for(var i = 0; i < this.rows().length; i++) {
-        var sum = 0
-        var row = i
-        while (col < this.rows().length && row < this.rows().length) {
-          sum += this.rows()[row][col]
-          if (sum > 1) {
-            return true
+      var board = this.rows();
+      
+      for ( var i = 0; i < board.length; i++ ) {
+        var col = majorDiagonalColumnIndexAtFirstRow;
+        var sum = 0;
+        var row = i;
+
+        while (col < board.length && row < board.length) {
+          sum += board[row][col];
+          if ( sum > 1 ) {
+            return true;
           }
-          row++
-          col++
-          console.log(sum)
+          row++;
+          col++;
         }
       }
-      return false
+      return false;
     },
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
-      // for (var col = 0; col < this.rows()[0].length; col++) {
-      //   if (this.hasMajorDiagonalConflictAt(col)) {
-      //     return true
-      //   }
-      // }
-      // return false
-      return this.hasMajorDiagonalConflictAt(1)
+      var board = this.rows();
+      for ( var i = 0; i < board.length; i++ ) {
+        var result = this.hasMajorDiagonalConflictAt(i);
+        if (result === true) {
+          return result;     
+        }
+      }
+      return false;
     },
 
 
