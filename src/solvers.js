@@ -11,7 +11,8 @@
 // take a look at solversSpec.js to see what the tests are expecting
 
 
-// return a matrix (an array of arrays) representing a single nxn chessboard, with n rooks placed such that none of them can attack each other
+// return a matrix (an array of arrays) representing a single nxn chessboard, 
+// with n rooks placed such that none of them can attack each other
 
 
 
@@ -20,7 +21,8 @@ window.findNRooksSolution = function(n) {
   var chessBoard = new Board({n:n});
   if (n === 1) {
     chessBoard.togglePiece(0,0)
-  return chessBoard
+    console.log()
+  return chessBoard.rows()
   }
   console.log(chessBoard);
   var checkIthRow = function(row) {
@@ -38,7 +40,7 @@ window.findNRooksSolution = function(n) {
 
       if (!checkCollision) {
         if (row === n - 1 ) {
-          var solution = chessBoard;
+          var solution = chessBoard.rows();
           console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution));  
           return solution;
         }    
