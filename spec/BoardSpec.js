@@ -77,4 +77,4 @@ describe('Board', function() {
       [0, 0, 1, 0]
     ]);
   });
-});
+});  
