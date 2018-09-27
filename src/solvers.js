@@ -16,15 +16,64 @@
 
 
 window.findNRooksSolution = function(n) {
-  var solution = undefined; //fixme
 
-  console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution));
-  return solution;
+  var chessBoard = new Board({n:n});
+  if (n === 1) {
+    chessBoard.togglePiece(0,0)
+  return chessBoard
+  }
+  console.log(chessBoard);
+  var checkIthRow = function(row) {
+    if (row === n) {
+      return;  
+    }
+
+    for ( var i = 0; i < n; i++ ) {
+      chessBoard.togglePiece(row, i);
+      var checkCollision = chessBoard.hasAnyRooksConflicts(); // placeholder for now
+      
+      if (checkCollision) {
+        chessBoard.togglePiece(row, i);
+      }
+
+      if (!checkCollision) {
+        if (row === n - 1 ) {
+          var solution = chessBoard;
+          console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution));  
+          return solution;
+        }    
+        checkIthRow(row + 1);
+      }
+    }
+  };  
+  checkIthRow(0);
+  
 };
 
 // return the number of nxn chessboards that exist, with n rooks placed such that none of them can attack each other
 window.countNRooksSolutions = function(n) {
-  var solutionCount = undefined; //fixme
+  var solutionCount = 0;
+  var board = this.rows();
+
+  var checkIthRow = function(row) {
+    if (row === n) {
+      return;  
+    }
+    for ( var i = 0; i < board.length; i++ ) {
+      this.togglePiece(row, i);
+      var checkCollision = this.hasAnyRooksConflicts(); // placeholder for now
+      
+      if (!checkCollision) {
+        if (row === n - 1 ) {
+          solutionCount++;
+        }    
+        checkIthRow(row + 1);
+      
+      }
+    }
+    this.set(row, Array(n).fill(0)); // Maybe row + 1
+    checkIthRow(0);
+  };
 
   console.log('Number of solutions for ' + n + ' rooks:', solutionCount);
   return solutionCount;
